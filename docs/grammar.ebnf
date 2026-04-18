@@ -1,0 +1,34 @@
+(* ============================== *)
+(* Axiom Language - EBNF Grammar  *)
+(* ============================== *)
+
+(* --- Program Yapısı --- *)
+program = {satır};
+
+(* --- Satır Türleri --- *)
+satır = değişken_tanımı | atama | display_ifadesi | if_yapısı | while_yapısı;
+
+(* --- Değişken İşlemleri --- *)
+değişken_tanımı = "let" tanımlayıcı "=" ifade;
+atama = tanımlayıcı "=" ifade;
+
+(* --- Giriş/Çıkış --- *)
+display_ifadesi = "display" "(" ifade ")";
+
+(* --- Kontrol Yapıları --- *)
+if_yapısı = "if" koşul "then" {satır} ["else" {satır}] "end";
+while_yapısı = "while" koşul "do" {satır} "end";
+
+(* --- Koşul İfadesi --- *)
+koşul = ifade (">" | "<" | "==" | "!=" | ">=" | "<=") ifade;
+
+(* --- Aritmetik İfadeler (öncelik sırasına göre) --- *)
+ifade  = terim {( "+" | "-") terim};
+terim  = çarpan {( "*" | "/") çarpan};
+çarpan = atom ["^" çarpan];
+atom   = ["-"] (sayı | tanımlayıcı | "(" ifade ")");
+
+(* --- Temel Birimler --- *)
+tanımlayıcı = (("a".."z") | ("A".."Z")) {("a".."z") | ("A".."Z") | ("0".."9") | "_"};
+sayı = rakam{rakam} ["." rakam {rakam}];
+rakam = "0".."9";
