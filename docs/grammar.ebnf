@@ -2,33 +2,33 @@
 (* Axiom Language - EBNF Grammar  *)
 (* ============================== *)
 
-(* --- Program Yapısı --- *)
-program = {satır};
+(* --- Program Structure --- *)
+program = {statement};
 
-(* --- Satır Türleri --- *)
-satır = değişken_tanımı | atama | display_ifadesi | if_yapısı | while_yapısı;
+(* --- Statement Types --- *)
+statement = (variable_declaration | assignment | display_statement)";" | if_statement | while_statement;
 
-(* --- Değişken İşlemleri --- *)
-değişken_tanımı = "let" tanımlayıcı "=" ifade;
-atama = tanımlayıcı "=" ifade;
+(* --- Variable Declaration --- *)
+variable_declaration = "let" identifier "=" expression;
+assignment = identifier "=" expression;
 
-(* --- Giriş/Çıkış --- *)
-display_ifadesi = "display" "(" ifade ")";
+(* --- I/O Operations --- *)
+display_statement = "display" "(" expression ")";
 
-(* --- Kontrol Yapıları --- *)
-if_yapısı = "if" koşul "then" {satır} ["else" {satır}] "end";
-while_yapısı = "while" koşul "do" {satır} "end";
+(* --- Control Structures --- *)
+if_statement = "if" condition "then" {statement} ["else" {statement}] "end";
+while_statement = "while" condition "do" {statement} "end";
 
-(* --- Koşul İfadesi --- *)
-koşul = ifade (">" | "<" | "==" | "!=" | ">=" | "<=") ifade;
+(* --- Conditional Expressions --- *)
+condition = expression (">" | "<" | "==" | "!=" | ">=" | "<=") expression;
 
-(* --- Aritmetik İfadeler (öncelik sırasına göre) --- *)
-ifade  = terim {( "+" | "-") terim};
-terim  = çarpan {( "*" | "/") çarpan};
-çarpan = atom ["^" çarpan];
-atom   = ["-"] (sayı | tanımlayıcı | "(" ifade ")");
+(* --- Arithmetic Expressions --- *)
+expression  = term {( "+" | "-") term};
+term  = factor {( "*" | "/") factor};
+factor = atom ["^" factor];
+atom   = ["-"] (number | identifier | "(" expression ")");
 
-(* --- Temel Birimler --- *)
-tanımlayıcı = (("a".."z") | ("A".."Z")) {("a".."z") | ("A".."Z") | ("0".."9") | "_"};
-sayı = rakam{rakam} ["." rakam {rakam}];
-rakam = "0".."9";
+(* --- Basic Units --- *)
+identifier = (("a".."z") | ("A".."Z")) {("a".."z") | ("A".."Z") | ("0".."9") | "_"};
+number = digit{digit} ["." digit {digit}];
+digit = "0".."9";
