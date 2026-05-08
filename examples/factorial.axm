@@ -1,0 +1,10 @@
+let n = 10;
+let result = 1;
+let i = 1;
+
+while i <= n do
+    result = result * i;
+    i = i + 1;
+end
+
+display(result);

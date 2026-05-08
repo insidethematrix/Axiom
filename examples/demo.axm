@@ -1,0 +1,24 @@
+let x = 10;
+let y = 3;
+let result = x + y * 2;
+display(result);
+
+if result > 15 then
+    display(1);
+else
+    display(0);
+end
+
+let sum = 0;
+let i = 1;
+while i <= 5 do
+    sum = sum + i;
+    i = i + 1;
+end
+display(sum);
+
+let power = 2 ^ 3 ^ 2;
+display(power);
+
+let neg = -(4 + 1);
+display(neg);

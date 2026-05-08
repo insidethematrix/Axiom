@@ -1,0 +1,16 @@
+let num = 15;
+
+if num > 10 then
+    display(1);
+else
+    display(0);
+end
+
+let a = 100;
+let b = 200;
+
+if a >= b then
+    display(a);
+else
+    display(b);
+end
